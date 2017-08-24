@@ -12,16 +12,13 @@
 #include "Faerie.hh"
 #include "AProjectile.hh"
 #include "EventReceiver.hh"
-#include "MainMenu.hh"
 #include "Mob.hh"
 #include "Boss.hh"
 
 int main(void)
 {
-  MainMenu	menu;
 
-
-    if (menu.started() || true)
+    if (true)
     {
       EventReceiver receiver;
 

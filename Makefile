@@ -9,6 +9,7 @@ SRCS	=	src/main.cpp \
 		src/Exceptions.cpp \
 		src/ACharacter.cpp \
 		src/AEntity.cpp \
+		src/AEnnemy.cpp \
 		src/Map.cpp \
 		src/Sydney.cpp \
 		src/Faerie.cpp \
@@ -18,8 +19,6 @@ SRCS	=	src/main.cpp \
 		src/AProjectile.cpp \
 		src/Camera.cpp \
 		src/Mob.cpp \
-		src/MainMenu.cpp \
-		src/MenuFX.cpp \
 		src/Tile.cpp \
 		src/Fireball.cpp \
 		src/Sword.cpp \
