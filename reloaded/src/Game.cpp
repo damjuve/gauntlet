@@ -60,7 +60,7 @@ void Game::setupPlayers(unsigned int number) {
       keymap[APlayer::EKEYMAP_BOTTOM] = irr::KEY_KEY_S;
       keymap[APlayer::EKEYMAP_SHOOT] = irr::KEY_KEY_A;
       // Creating player
-      player = new Dwarf(*_device, *_receiver, *_cam, keymap, _mlist, irr::core::vector3df(-3, 5, 1.5f));
+      player = new Dwarf(*_device, *_receiver, *_cam, keymap, _mlist, irr::core::vector3df(-8, 5, 15));
     }
     // Sydney player
     if (number == 3) {
@@ -72,7 +72,7 @@ void Game::setupPlayers(unsigned int number) {
       keymap[APlayer::EKEYMAP_BOTTOM] = irr::KEY_KEY_L;
       keymap[APlayer::EKEYMAP_SHOOT] = irr::KEY_KEY_I;
       // Creating player
-      player = new Sydney(*_device, *_receiver, *_cam, keymap, _mlist, irr::core::vector3df(-3, 5, 1.5f));
+      player = new Sydney(*_device, *_receiver, *_cam, keymap, _mlist, irr::core::vector3df(-8, 5, 5));
     }
     // Ninja player
     if (number == 1) {
@@ -84,7 +84,7 @@ void Game::setupPlayers(unsigned int number) {
       keymap[APlayer::EKEYMAP_BOTTOM] = irr::KEY_DOWN;
       keymap[APlayer::EKEYMAP_SHOOT] = irr::KEY_RSHIFT;
       // Creating player
-      player = new Ninja(*_device, *_receiver, *_cam, keymap, _mlist, irr::core::vector3df(-3, 5, 1.5f));
+      player = new Ninja(*_device, *_receiver, *_cam, keymap, _mlist, irr::core::vector3df(-8, 5, -5));
     }
     // Faerie player
     if (number == 2) {
@@ -96,7 +96,7 @@ void Game::setupPlayers(unsigned int number) {
       keymap[APlayer::EKEYMAP_BOTTOM] = irr::KEY_KEY_B;
       keymap[APlayer::EKEYMAP_SHOOT] = irr::KEY_KEY_F;
       // Creating player
-      player = new Faerie(*_device, *_receiver, *_cam, keymap, _mlist, irr::core::vector3df(-3, 5, 1.5f));
+      player = new Faerie(*_device, *_receiver, *_cam, keymap, _mlist, irr::core::vector3df(-8, 5, -15));
     }
     player->addToSceneManager(_sceneManager, 0, _driver);
     player->addCollision(_sceneManager, _selector);

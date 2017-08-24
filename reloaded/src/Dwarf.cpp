@@ -20,7 +20,7 @@ Dwarf::Dwarf(irr::IrrlichtDevice & device,
 	    irr::core::vector3df(0.1f, 0.1f, 0.1f),
 	    4000,
 	    45,
-	    0.1f)
+	    0.25f)
 {}
 
 Dwarf::~Dwarf()

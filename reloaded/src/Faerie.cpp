@@ -19,7 +19,7 @@ Faerie::Faerie(irr::IrrlichtDevice & device,
 	    irr::core::vector3df(0.18f, 0.18f, 0.18f),
 	    800,
 	    400,
-	    0.2f)
+	    0.3f)
 {}
 
 Faerie::~Faerie()
