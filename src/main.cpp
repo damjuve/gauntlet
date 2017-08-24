@@ -17,7 +17,6 @@
 
 int main(void)
 {
-
     if (true)
     {
       EventReceiver receiver;
