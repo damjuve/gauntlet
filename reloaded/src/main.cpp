@@ -36,8 +36,8 @@ int main(int ac, char **av)
         game.start();
       }
       catch (std::runtime_error e) {
-        std::cerr << "Exception encountred" << std::endl;
-        std::cerr << e.what() << std::endl;
+        std::cerr << "==== Fatal Error ====" << std::endl;
+        std::cerr << "Exception :" << e.what() << std::endl;
         return (1);
       }
       return (0);

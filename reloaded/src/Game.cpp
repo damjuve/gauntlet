@@ -7,12 +7,17 @@ Game::Game(irr::IrrlichtDevice * device, EventReceiver * receiver)
 {
   _driver = device->getVideoDriver();
   _sceneManager = device->getSceneManager();
+
+  _cam = NULL;
+  _map = NULL;
 }
 
 Game::~Game()
 {
-  delete _cam;
-  delete _map;
+  if (_cam != NULL)
+    delete _cam;
+  if (_map != NULL)
+    delete _map;
 }
 
 void Game::load() {
@@ -155,8 +160,11 @@ void Game::start() {
 
   if (_device->run()) {
     if (this->nbplayeralive() > 0)
-      std::cout << "Victoire :)" << std::endl;
+      std::cout << "### Victoire :) ###" << std::endl;
     else
-      std::cout << "Defaite :(" << std::endl;
+      std::cout << "### Defaite :( ###" << std::endl;
+  }
+  else {
+    std::cout << "### Goodbye ###" << std::endl;
   }
 }
