@@ -40,5 +40,6 @@ int main(int ac, char **av)
         std::cerr << "Exception :" << e.what() << std::endl;
         return (1);
       }
+      device->drop();
       return (0);
 }

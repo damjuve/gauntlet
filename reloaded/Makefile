@@ -20,7 +20,6 @@ SRCS	=	src/main.cpp \
 		src/AProjectile.cpp \
 		src/Camera.cpp \
 		src/Mob.cpp \
-		src/Tile.cpp \
 		src/Fireball.cpp \
 		src/Sword.cpp \
 		src/Shuriken.cpp \

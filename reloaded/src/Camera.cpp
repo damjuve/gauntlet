@@ -1,13 +1,3 @@
-//
-// Camera.cpp for indie in /home/dallem_e/rendu/cpp_indie_studio/rendu
-//
-// Made by Erik Dallemagne
-// Login   <dallem_e@epitech.net>
-//
-// Started on  Wed Jun  1 17:24:39 2016 Erik Dallemagne
-// Last update Sun Jun  5 19:57:59 2016 romain semanaz
-//
-
 #include <iostream>
 #include "Camera.hh"
 

@@ -138,7 +138,6 @@ unsigned int Game::nbmobalive() const {
 
 void Game::start() {
   while (_device->run() && this->nbplayeralive() > 0 && this->nbmobalive() > 0) {
-    irr::core::vector3df dir(0, 0, 0);
 
     // update all players
     for (std::list<ACharacter *>::iterator it = _plist.begin(); it != _plist.end(); ++it) {
