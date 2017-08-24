@@ -18,8 +18,6 @@ SRCS	=	src/main.cpp \
 		src/AProjectile.cpp \
 		src/Camera.cpp \
 		src/Mob.cpp \
-		src/MainMenu.cpp \
-		src/MenuFX.cpp \
 		src/Tile.cpp \
 		src/Fireball.cpp \
 		src/Sword.cpp \
