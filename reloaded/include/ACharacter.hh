@@ -11,9 +11,9 @@ class		AProjectile;
 class ACharacter : public AEntity
 {
 private:
-  std::string 					_path_mesh;
+  std::string 				_path_mesh;
   irr::core::vector3df 			_box;
-  int							_hp;
+  int					_hp;
 
 protected:
   int					_damage;

@@ -8,6 +8,7 @@ CPPFLAGS	+=	-I./include -I./lib/include
 SRCS	=	src/main.cpp \
 		src/Game.cpp \
 		src/Exceptions.cpp \
+		src/AEnnemy.cpp \
 		src/ACharacter.cpp \
 		src/AEntity.cpp \
 		src/Map.cpp \
