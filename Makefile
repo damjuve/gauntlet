@@ -9,6 +9,7 @@ SRCS	=	src/main.cpp \
 		src/Exceptions.cpp \
 		src/ACharacter.cpp \
 		src/AEntity.cpp \
+		src/AEnnemy.cpp \
 		src/Map.cpp \
 		src/Sydney.cpp \
 		src/Faerie.cpp \
