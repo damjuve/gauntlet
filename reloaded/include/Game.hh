@@ -35,6 +35,7 @@ private:
   void setupMobs();
 
   unsigned int nbplayeralive() const;
+
   unsigned int nbmobalive() const;
 
 public:

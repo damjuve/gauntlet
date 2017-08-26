@@ -24,7 +24,7 @@ void	Shuriken::addToSceneManager(irr::scene::ISceneManager *sceneManager,
 					 _position, _rotation, _scale);
   if (!_node)
     throw exception::IrrlichtException("addCubeSceneNode");
-  _node->setMaterialTexture(0, driver->getTexture("./media/projectiles/shuriken.mtl"));
+  //_node->setMaterialTexture(0, driver->getTexture("./media/projectiles/shuriken.mtl"));
 
   irr::scene::ISceneNodeAnimator *anim = sceneManager->createRotationAnimator(irr::core::vector3df(0, 15, 0));
   if (!anim)

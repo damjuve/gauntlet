@@ -1,6 +1,7 @@
 #include <iostream>
 #include <unistd.h>
 #include "Game.hh"
+#include "Ressources.hh"
 
 Game::Game(irr::IrrlichtDevice * device, EventReceiver * receiver)
   : _device(device), _receiver(receiver)
@@ -43,6 +44,19 @@ void Game::load() {
   // Map collision selector
   _selector = _sceneManager->createMetaTriangleSelector();
   _map->addToSelector(_sceneManager, _selector);
+
+  // Create LifeBar textures
+  Ressources::_texgreen = _driver->addRenderTargetTexture(irr::core::dimension2d<irr::u32>(128, 128));
+  _driver->setRenderTarget(Ressources::_texgreen);
+  irr::video::SColor gcol(128, 255, 0, 0);
+  _driver->draw2DRectangle(gcol, irr::core::rect<irr::s32>(irr::core::position2d<irr::s32>(0,0),irr::core::position2d<irr::s32>(128,128)));
+  
+  Ressources::_texred = _driver->addRenderTargetTexture(irr::core::dimension2d<irr::u32>(128, 128));
+  _driver->setRenderTarget(Ressources::_texred);
+  irr::video::SColor rcol(255, 0, 127, 0);
+  _driver->draw2DRectangle(rcol, irr::core::rect<irr::s32>(irr::core::position2d<irr::s32>(0,0),irr::core::position2d<irr::s32>(128,128)));
+
+  _driver->setRenderTarget(0);
 }
 
 void Game::setup(unsigned int nbplayers) {

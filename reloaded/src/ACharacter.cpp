@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Exceptions.hh"
 #include "ACharacter.hh"
+#include "Ressources.hh"
 
 ACharacter::ACharacter(irr::IrrlichtDevice & device,
 			   std::string const& path_mesh,
@@ -14,9 +15,11 @@ ACharacter::ACharacter(irr::IrrlichtDevice & device,
     _path_mesh(path_mesh),
     _box(collisionBox),
     _hp(hp),
+    _maxhp(hp),
     _damage(damage),
     _direction(0, 0, 0),
-    _text(NULL),
+    //   _text(NULL),
+    _lifebar(NULL),
     _device(device),
     _mesh(NULL),
     _node(NULL),
@@ -45,11 +48,12 @@ void 	ACharacter::addToSceneManager(irr::scene::ISceneManager *sceneManager,
     throw exception::IrrlichtException("addAnimatedSceneNode");
   setAnimation(EANIM_STAND);
 
-  irr::gui::IGUIFont * font = _device.getGUIEnvironment()->getFont("./media/menu/fonthaettenschweiler.bmp");
-  if (!font)
-    throw exception::LoadingDataException("Font", "./media/menu/fonthaettenschweiler.bmp");
+  // LIFE BAR KAPA
+  //  irr::gui::IGUIFont * font = _device.getGUIEnvironment()->getFont("./media/menu/fonthaettenschweiler.bmp");
+  //if (!font)
+  // throw exception::LoadingDataException("Font", "./media/menu/fonthaettenschweiler.bmp");
 
-  std::wstring str(std::to_wstring(_hp));
+  /*std::wstring str(std::to_wstring(_hp));
   _text = sceneManager->addTextSceneNode(font, (const wchar_t *)str.c_str(),
   										 irr::video::SColor(255, 64, 64, 0),
   										 _node,
@@ -58,6 +62,21 @@ void 	ACharacter::addToSceneManager(irr::scene::ISceneManager *sceneManager,
   if (!_text)
     throw exception::IrrlichtException("addTextSceneNode");
   _text->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+  */
+  
+  _lifebar = sceneManager->addCubeSceneNode(1,
+					    _node,
+					    -1,
+					    irr::core::vector3df(0, 15, 0),
+					    irr::core::vector3df(0, 0, 0),
+					    irr::core::vector3df(5, 1, 1));
+  irr::video::ITexture * target = driver->addRenderTargetTexture(irr::core::dimension2d<irr::u32>(128, 128));
+  driver->setRenderTarget(target);
+  irr::video::SColor col(200, 0, 127, 0);
+  driver->draw2DRectangle(col, irr::core::rect<irr::s32>(irr::core::position2d<irr::s32>(0,0),irr::core::position2d<irr::s32>(128,128)));
+  driver->setRenderTarget(0);
+  _lifebar->setMaterialTexture(0, target);
+  _lifebar->setMaterialType(irr::video::EMT_TRANSPARENT_ALPHA_CHANNEL);
 }
 
 void 	ACharacter::addToSelector(irr::scene::ISceneManager *sceneManager,
@@ -79,10 +98,22 @@ int					ACharacter::getHp() const
 
 void					ACharacter::setHp(int dmg)
 {
+  if (_hp > _maxhp / 3 && _hp - dmg < _maxhp / 3) {
+    irr::video::IVideoDriver * driver = _device.getVideoDriver();
+    irr::video::ITexture * target = driver->addRenderTargetTexture(irr::core::dimension2d<irr::u32>(128, 128));
+    driver->setRenderTarget(target);
+    irr::video::SColor col(200, 255, 0, 0);
+    driver->draw2DRectangle(col, irr::core::rect<irr::s32>(irr::core::position2d<irr::s32>(0,0),irr::core::position2d<irr::s32>(128,128)));
+    driver->setRenderTarget(0);
+    _lifebar->setMaterialTexture(0, target);
+  }
+  
   _hp = _hp - dmg;
-  std::wstring str(std::to_wstring(_hp));
-  if (_text)
-  	_text->setText((const wchar_t *)str.c_str());
+  /*std::wstring str(std::to_wstring(_hp));
+    if (_text)
+    _text->setText((const wchar_t *)str.c_str());*/
+  _lifebar->setScale(irr::core::vector3df((float)_hp*5/(float)_maxhp, 1, 1));
+
 }
 
 irr::scene::ISceneNode 		*	ACharacter::getNode() const

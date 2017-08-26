@@ -24,5 +24,5 @@ void	Sword::addToSceneManager(irr::scene::ISceneManager *sceneManager,
 					 _position, _rotation, _scale);
   if (!_node)
     throw exception::IrrlichtException("addMeshSceneNode");
-  _node->setMaterialTexture(0, driver->getTexture("./media/projectiles/sword.mtl"));
+  //_node->setMaterialTexture(0, driver->getTexture("./media/projectiles/sword.mtl"));
 }

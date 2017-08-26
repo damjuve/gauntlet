@@ -13,19 +13,21 @@ class ACharacter : public AEntity
 private:
   std::string 				_path_mesh;
   irr::core::vector3df 			_box;
-  int					_hp;
 
 protected:
+  int					_hp;
+  int					_maxhp;
   int					_damage;
   irr::core::vector3df 			_direction;
-  irr::scene::ITextSceneNode	*_text;
-
+  //irr::scene::ITextSceneNode	*_text;
+  irr::scene::ISceneNode *		_lifebar;
+  
 protected:
   irr::IrrlichtDevice & 		_device;
   irr::scene::IAnimatedMesh 			* _mesh;
   irr::scene::IAnimatedMeshSceneNode		* _node;
   AProjectile					*_projectile;
-
+  
 public:
   ACharacter(irr::IrrlichtDevice & device,
 	     std::string const& path_mesh,
@@ -49,7 +51,7 @@ public:
 
 
   int				getHp() const;
-  void				setHp(int dmg);
+  virtual void				setHp(int dmg);
 
   virtual irr::scene::ISceneNode 	*getNode() const;
 
