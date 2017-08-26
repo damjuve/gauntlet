@@ -98,7 +98,7 @@ int					ACharacter::getHp() const
 
 void					ACharacter::setHp(int dmg)
 {
-  if (_hp > _maxhp / 3 && _hp - dmg < _maxhp / 3) {
+  if (_hp > _maxhp / 3 && _hp - dmg <= _maxhp / 3) {
     irr::video::IVideoDriver * driver = _device.getVideoDriver();
     irr::video::ITexture * target = driver->addRenderTargetTexture(irr::core::dimension2d<irr::u32>(128, 128));
     driver->setRenderTarget(target);

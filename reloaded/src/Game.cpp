@@ -73,11 +73,11 @@ void Game::setupPlayers(unsigned int number) {
     if (number == 4) {
       // setting keymap
       irr::EKEY_CODE  keymap[APlayer::EKEYMAP_NB_KEY];
-      keymap[APlayer::EKEYMAP_LEFT] = irr::KEY_KEY_Q;
-      keymap[APlayer::EKEYMAP_RIGHT] = irr::KEY_KEY_D;
-      keymap[APlayer::EKEYMAP_TOP] = irr::KEY_KEY_Z;
-      keymap[APlayer::EKEYMAP_BOTTOM] = irr::KEY_KEY_S;
-      keymap[APlayer::EKEYMAP_SHOOT] = irr::KEY_KEY_A;
+      keymap[APlayer::EKEYMAP_LEFT] = irr::KEY_KEY_V;
+      keymap[APlayer::EKEYMAP_RIGHT] = irr::KEY_KEY_N;
+      keymap[APlayer::EKEYMAP_TOP] = irr::KEY_KEY_G;
+      keymap[APlayer::EKEYMAP_BOTTOM] = irr::KEY_KEY_B;
+      keymap[APlayer::EKEYMAP_SHOOT] = irr::KEY_KEY_F;
       // Creating player
       player = new Dwarf(*_device, *_receiver, *_cam, keymap, _mlist, irr::core::vector3df(-8, 5, 15));
     }
@@ -109,11 +109,11 @@ void Game::setupPlayers(unsigned int number) {
     if (number == 2) {
       // setting keymap
       irr::EKEY_CODE  keymap[APlayer::EKEYMAP_NB_KEY];
-      keymap[APlayer::EKEYMAP_LEFT] = irr::KEY_KEY_V;
-      keymap[APlayer::EKEYMAP_RIGHT] = irr::KEY_KEY_N;
-      keymap[APlayer::EKEYMAP_TOP] = irr::KEY_KEY_G;
-      keymap[APlayer::EKEYMAP_BOTTOM] = irr::KEY_KEY_B;
-      keymap[APlayer::EKEYMAP_SHOOT] = irr::KEY_KEY_F;
+      keymap[APlayer::EKEYMAP_LEFT] = irr::KEY_KEY_Q;
+      keymap[APlayer::EKEYMAP_RIGHT] = irr::KEY_KEY_D;
+      keymap[APlayer::EKEYMAP_TOP] = irr::KEY_KEY_Z;
+      keymap[APlayer::EKEYMAP_BOTTOM] = irr::KEY_KEY_S;
+      keymap[APlayer::EKEYMAP_SHOOT] = irr::KEY_KEY_A;
       // Creating player
       player = new Faerie(*_device, *_receiver, *_cam, keymap, _mlist, irr::core::vector3df(-8, 5, -15));
     }
@@ -125,6 +125,7 @@ void Game::setupPlayers(unsigned int number) {
 
 void Game::setupMobs() {
   _mlist.push_back(new Mob(*_device, _plist, irr::core::vector3df(94, 5, -8)));
+  //_mlist.push_back(new Boss(*_device, _plist, irr::core::vector3df(94, 75, 50)));
   for(std::list<ACharacter *>::iterator it = _mlist.begin(); it != _mlist.end(); ++it)
   {
     (*it)->addToSceneManager(_sceneManager, 0, _driver);
@@ -151,14 +152,26 @@ unsigned int Game::nbmobalive() const {
 }
 
 void Game::start() {
-  while (_device->run() && this->nbplayeralive() > 0 && this->nbmobalive() > 0) {
+  bool boss = false;
+  while (_device->run() && this->nbplayeralive() > 0 && (this->nbmobalive() > 0 || boss == false)) {
 
     // update all players
     for (std::list<ACharacter *>::iterator it = _plist.begin(); it != _plist.end(); ++it) {
       if ((*it)->getHp() > 0)
         (*it)->update(_sceneManager, _driver, _selector);
+      // spawn boss
+      if (boss == false) {
+	irr::core::vector3df pos = (*it)->getPosition();
+	if (pos.Z >= 221 && pos.Z <= 225 && pos.X >= -17 && pos.X <= -1) {
+	  ACharacter * b = new Boss(*_device, _plist, irr::core::vector3df(10, 15, 250));
+	  _mlist.push_back(b);
+	  b->addToSceneManager(_sceneManager, 0, _driver);
+	  // b->addCollision(_sceneManager, _selector);
+	  boss = true;
+	}
+      }
     }
-
+      
     // update all mobs
     for (std::list<ACharacter *>::iterator it = _mlist.begin(); it != _mlist.end(); ++it) {
       if ((*it)->getHp() > 0)

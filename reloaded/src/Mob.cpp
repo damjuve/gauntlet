@@ -3,7 +3,7 @@
 
 Mob::Mob(irr::IrrlichtDevice & device, std::list<ACharacter *> &list,
 	 irr::core::vector3df const& position)
-  : AEnnemy(device, list, position, 50, 500, 3, irr::core::vector3df(0.1f, 0.1f, 0.1f),
+  : AEnnemy(device, list, position, 50, 0.016f, 5, 500, 3, irr::core::vector3df(0.1f, 0.1f, 0.1f),
 	    irr::core::vector3df(2.5f, 6, 2.5f))
 {}
 

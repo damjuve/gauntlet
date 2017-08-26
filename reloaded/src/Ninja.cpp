@@ -38,14 +38,6 @@ void 		Ninja::setAnimation(ACharacter::Animation anim)
   _node->setAnimationSpeed(15);
 }
 
-void		Ninja::addToSceneManager(irr::scene::ISceneManager *sceneManager,
-				                      irr::scene::ISceneNode *parent,
-		                              irr::video::IVideoDriver *driver)
-{
-	APlayer::addToSceneManager(sceneManager, parent, driver);
-	//_node->setMaterialTexture(0, driver->getTexture("./media/model/sydney.bmp"));
-}
-
 AProjectile		*Ninja::getProjectile(irr::video::IVideoDriver *driver)
 {
   return (new Sword(driver, getPosition(), getDirection(), getRotation()));

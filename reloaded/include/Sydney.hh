@@ -17,10 +17,11 @@ public:
 
   virtual void setAnimation(ACharacter::Animation anim);
 
-  void		addToSceneManager(irr::scene::ISceneManager *sceneManager,
-				  irr::scene::ISceneNode *parent,
-				  irr::video::IVideoDriver *driver);
+  virtual  void		addToSceneManager(irr::scene::ISceneManager *sceneManager,
+					  irr::scene::ISceneNode *parent,
+					  irr::video::IVideoDriver *driver);
   AProjectile	*getProjectile(irr::video::IVideoDriver *driver);
+  virtual void	setHp(int dmg);
 };
 
 #endif // SYDNEY_HH

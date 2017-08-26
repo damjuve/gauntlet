@@ -42,11 +42,20 @@ void		Faerie::addToSceneManager(irr::scene::ISceneManager *sceneManager,
 				                      irr::scene::ISceneNode *parent,
 		                              irr::video::IVideoDriver *driver)
 {
-	APlayer::addToSceneManager(sceneManager, parent, driver);
-	_node->setMaterialTexture(0, driver->getTexture("./media/model/faerie.bmp"));
+  APlayer::addToSceneManager(sceneManager, parent, driver);
+  _node->setMaterialTexture(0, driver->getTexture("./media/model/faerie.bmp"));
+  _lifebar->setPosition(irr::core::vector3df(0, 50, 0));
+  _lifebar->setScale(irr::core::vector3df(4, 4, 15));
+
 }
 
 AProjectile		*Faerie::getProjectile(irr::video::IVideoDriver *driver)
 {
   return (new Fireball(driver, getDirection(), getPosition(), getRotation()));
+}
+
+void	Faerie::setHp(int dmg)
+{
+  ACharacter::setHp(dmg);
+  _lifebar->setScale(irr::core::vector3df(4, 4, (float)_hp*15/(float)_maxhp));
 }

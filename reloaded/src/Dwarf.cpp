@@ -43,11 +43,19 @@ void		Dwarf::addToSceneManager(irr::scene::ISceneManager *sceneManager,
 				                      irr::scene::ISceneNode *parent,
 		                              irr::video::IVideoDriver *driver)
 {
-	APlayer::addToSceneManager(sceneManager, parent, driver);
-	//_node->setMaterialTexture(0, driver->getTexture("./media/model/sydney.bmp"));
+  APlayer::addToSceneManager(sceneManager, parent, driver);	
+  _lifebar->setPosition(irr::core::vector3df(0, 90, 0));
+  _lifebar->setScale(irr::core::vector3df(60, 12, 12));
 }
 
 AProjectile		*Dwarf::getProjectile(irr::video::IVideoDriver *driver)
 {
   return (new Axe(driver, getDirection(), getPosition(), getRotation()));
+}
+
+
+void	Dwarf::setHp(int dmg)
+{
+  ACharacter::setHp(dmg);
+  _lifebar->setScale(irr::core::vector3df((float)_hp*60/(float)_maxhp, 12, 12));
 }
