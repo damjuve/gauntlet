@@ -1,0 +1,18 @@
+
+
+#ifndef		IRC_H_
+# define	IRC_H_
+
+typedef struct s_msg t_msg;
+
+typedef struct	s_client
+{
+  int			fd;
+  char			nickname[NICKNAME_MAX];
+  t_msg			*msgq;
+  t_channel		*channel;
+  struct s_client	*next;
+}i		t_client;
+
+
+#endif
