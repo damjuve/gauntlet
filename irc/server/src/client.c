@@ -3,42 +3,6 @@
 #include <string.h>
 #include "irc.h"
 
-
-static void	remove_client_from_list(t_client **clients, t_client *torm)
-{
-  t_client	*tmp;
-  t_client	*prev;
-
-  tmp = *clients;
-  prev = NULL;
-  while (tmp != torm && tmp != NULL)
-    {
-      prev = tmp;
-      tmp = tmp->next;
-    }
-  if (tmp == NULL)
-    return ;
-  if (prev == NULL)
-    *clients = tmp->next;
-  else
-    prev->next = tmp->next;
-}
-
-void		remove_client(t_server *server, t_client *torm)
-{
-  t_channel	*chan;
-
-  chan = server->chans;
-  while (chan != NULL)
-    {
-      remove_client_from_list(&chan->clients, torm);
-      chan = chan->next;
-    }
-  remove_client_from_list(&server->clients, torm);
-  // Free ressources inside tclient???
-  free(torm);
-}
-
 void		fdset_client(t_server *serv,
 			     fd_set *rfds,
 			     fd_set *wfds)
@@ -90,7 +54,6 @@ int			client_join(t_server *server)
       while (tmp->next != NULL)
 	tmp = tmp->next;
       tmp->next = new;
-
     }
   return (EXIT_SUCCESS);
 }

@@ -47,3 +47,10 @@ void		send_msg(t_client *client)
       free(msg);
     }
 }
+
+int		add_msg_to_chan(t_server *server, t_client *except,
+				char const *msg, char const* from)
+{
+  
+
+}
