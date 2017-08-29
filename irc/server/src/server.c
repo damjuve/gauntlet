@@ -39,21 +39,66 @@ static int			init_server(t_server *server, int port)
 
 char		*read_buff(t_client *client, bool *disconected)
 {
-  return (NULL);
-}
+  char		*buff;
+  int		len;
+  int		size;
 
-void		remove_client(t_server *server, t_client *client)
-{
-  return ;
+  size = 0;
+  if ((buff = xmalloc(sizeof(*buff) * (SIZE_READ + 1))) == NULL)
+    return (NULL);
+  len = SIZE_READ;
+  while (len == SIZE_READ && (len = read(client->fd, &(buff[size]), SIZE_READ)) > 0)
+    {
+      size += len;
+      if (len == SIZE_READ &&
+	  (buff = xrealloc(buff, sizeof(*buff) * (SIZE_READ + size + 1))) == NULL)
+	return (NULL);
+    }
+  if (len == -1)
+    {
+      xerror("Call to read failed (read_buff)\n");
+      return (NULL);
+    }
+  if (size == 0)
+    *disconected = true;
+  buff[size] = '\0';
+  return (buff);
 }
 
 char		**read_cmd(char *buff)
 {
-  return (NULL);
+  char		**cmd;
+  int		i;
+  int		j;
+  int		off;
+
+  if ((cmd = xmalloc(sizeof(*cmd) * 1)) == NULL)
+    return (NULL);
+  i = 0;
+  j = 0;
+  cmd[j] = NULL;
+  off = 0;
+  while (buff[i] != '\0')
+    {
+      if (buff[i] == '\n')
+	{
+	  if ((cmd = xrealloc(cmd, sizeof(*cmd) * (j + 2))) == NULL)
+	    return (NULL);
+	  if ((cmd[j] = xncopy(&buff[off], i - off)) == NULL)
+	    return (NULL);
+	  off = i;
+	  j++;
+	  cmd[j] = NULL;
+	}
+      i++;
+    }
+  return (cmd);
 }
 
 int		execute_cmd(char *cmd, t_server *server, t_client *client)
 {
+  printf("CLIENT %d => CMD => %s\n", client->fd, cmd);
+  add_msg(client, "OK TAMERE", "SERVER");
   return (EXIT_SUCCESS);
 }
 
@@ -65,9 +110,10 @@ int		receive_msg(t_server *server, t_client *client)
   bool		disconected;
 
   disconected = false;
-  if ((buff = read_buff(client, &disconected)))
+  if ((buff = read_buff(client, &disconected)) == NULL)
     return (EXIT_FAILURE);
   if (disconected) {
+    free(buff);
     remove_client(server, client);
     return (EXIT_SUCCESS);
   }
@@ -84,10 +130,6 @@ int		receive_msg(t_server *server, t_client *client)
     }
   free(cmd);
   return (EXIT_SUCCESS);
-}
-
-void		send_msg(t_client *client)
-{
 }
 
 int		start_server(t_server *server)
