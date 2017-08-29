@@ -7,6 +7,7 @@
 # define	NICKNAME_MAX	256
 # define	LISTEN_MAX	50
 
+
 typedef struct s_msg t_msg;
 typedef struct s_channel t_channel;
 
@@ -15,7 +16,6 @@ typedef struct		s_client
   int			fd;
   char			nickname[NICKNAME_MAX];
   t_msg			*msgq;
-  t_channel		*channel;
   struct s_client	*next;
 }			t_client;
 
@@ -29,13 +29,20 @@ typedef struct		s_server
   struct timeval	tv;
 }			t_server;
 
+typedef struct		s_chanclient
+{
+  t_client		*client;
+  struct s_chanclient	*next;
+}			t_chanclient;
+
 typedef struct	s_channel
 {
   char			name[CHANNAME_MAX];
   char			topic[TOPIC_MAX];
-  t_client		*clients;
+  t_chanclient		*clients;
   struct s_channel	*next;
 }		t_chanel;
+
 
 typedef struct	s_msg
 {

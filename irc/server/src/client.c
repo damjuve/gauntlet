@@ -4,52 +4,6 @@
 #include <string.h>
 #include "irc.h"
 
-
-static void	remove_client_from_list(t_client **clients, t_client *torm)
-{
-  t_client	*tmp;
-  t_client	*prev;
-
-  tmp = *clients;
-  prev = NULL;
-  while (tmp != torm && tmp != NULL)
-    {
-      prev = tmp;
-      tmp = tmp->next;
-    }
-  if (tmp == NULL)
-    return ;
-  if (prev == NULL)
-    *clients = tmp->next;
-  else
-    prev->next = tmp->next;
-}
-
-void		remove_client(t_server *server, t_client *torm)
-{
-  t_channel	*chan;
-  t_msg		*msg;
-  t_msg		*old;
-
-  printf("## client #%d leave ##\n", torm->fd);
-  chan = server->chans;
-  while (chan != NULL)
-    {
-      remove_client_from_list(&chan->clients, torm);
-      chan = chan->next;
-    }
-  remove_client_from_list(&server->clients, torm);
-  msg = torm->msgq;
-  while (msg != NULL)
-    {
-      old = msg;
-      msg = msg->next;
-      free(old->msg);
-      free(old);
-    }
-  free(torm);
-}
-
 void		fdset_client(t_server *serv,
 			     fd_set *rfds,
 			     fd_set *wfds)
@@ -75,7 +29,6 @@ static void		init_client(t_client *new, int fd)
   new->fd = fd;
   memset(new->nickname, 0, NICKNAME_MAX);
   new->msgq = NULL;
-  new->channel = NULL;
   new->next = NULL;
 }
 
@@ -101,7 +54,6 @@ int			client_join(t_server *server)
       while (tmp->next != NULL)
 	tmp = tmp->next;
       tmp->next = new;
-
     }
   printf("## new client #%d ##\n", new->fd);
   return (EXIT_SUCCESS);
