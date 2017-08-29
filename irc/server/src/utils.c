@@ -2,6 +2,15 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+char const	*skipspace(char const *str)
+{
+  int		i;
+
+  i = 0;
+  while (str[i] == ' ')
+    i++;
+  return (&str[i]);
+}
 
 int		xerror(char const *s)
 {
