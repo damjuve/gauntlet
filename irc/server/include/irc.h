@@ -28,11 +28,12 @@ typedef struct		s_server
   struct timeval	tv;
 }			t_server;
 
-typedef struct s_channel
+typedef struct	s_channel
 {
-  char		name[CHANNAME_MAX];
-  char		topic[TOPIC_MAX];
-  t_client	*clients;
+  char			name[CHANNAME_MAX];
+  char			topic[TOPIC_MAX];
+  t_client		*clients;
+  struct s_channel	*next;
 }		t_chanel;
 
 typedef struct	s_msg

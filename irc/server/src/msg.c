@@ -1,6 +1,7 @@
 
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include "irc.h"
 
 int		add_msg(t_client *client, char *msg, const char *nickname)
