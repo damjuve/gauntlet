@@ -65,12 +65,6 @@ char		*read_buff(t_client *client, bool *disconected)
   return (buff);
 }
 
-void		remove_client(t_server *server, t_client *client)
-{
-  printf("## client #%d leave ##\n", client->fd);
-  return ;
-}
-
 char		**read_cmd(char *buff)
 {
   char		**cmd;
@@ -103,7 +97,8 @@ char		**read_cmd(char *buff)
 
 int		execute_cmd(char *cmd, t_server *server, t_client *client)
 {
-  printf("CLIENT %d => CMD => %s\n", client->fd, cmd); 
+  printf("CLIENT %d => CMD => %s\n", client->fd, cmd);
+  add_msg(client, "OK TAMERE", "SERVER");
   return (EXIT_SUCCESS);
 }
 
@@ -135,10 +130,6 @@ int		receive_msg(t_server *server, t_client *client)
     }
   free(cmd);
   return (EXIT_SUCCESS);
-}
-
-void		send_msg(t_client *client)
-{
 }
 
 int		start_server(t_server *server)

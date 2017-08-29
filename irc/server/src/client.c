@@ -28,7 +28,10 @@ static void	remove_client_from_list(t_client **clients, t_client *torm)
 void		remove_client(t_server *server, t_client *torm)
 {
   t_channel	*chan;
+  t_msg		*msg;
+  t_msg		*old;
 
+  printf("## client #%d leave ##\n", torm->fd);
   chan = server->chans;
   while (chan != NULL)
     {
@@ -36,7 +39,14 @@ void		remove_client(t_server *server, t_client *torm)
       chan = chan->next;
     }
   remove_client_from_list(&server->clients, torm);
-  // Free ressources inside tclient???
+  msg = torm->msgq;
+  while (msg != NULL)
+    {
+      old = msg;
+      msg = msg->next;
+      free(old->msg);
+      free(old);
+    }
   free(torm);
 }
 

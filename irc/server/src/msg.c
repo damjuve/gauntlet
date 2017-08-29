@@ -4,14 +4,15 @@
 #include <stdlib.h>
 #include "irc.h"
 
-int		add_msg(t_client *client, char *msg, const char *nickname)
+int		add_msg(t_client *client, char const *msg, const char *nickname)
 {
   t_msg		*new;
   t_msg		*tmp;
 
   if ((new = xmalloc(sizeof(*new))) == NULL)
-    return (EXIT_ERROR);
-  new->msg = msg;
+    return (EXIT_FAILURE);
+  if ((new->msg = xncopy(msg, strlen(msg))) == NULL)
+      return (EXIT_FAILURE);
   new->next = NULL;
   memset(new->from, 0, NICKNAME_MAX);
   strncpy(new->from, nickname, NICKNAME_MAX);

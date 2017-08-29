@@ -55,6 +55,11 @@ int		client_join(t_server *server);
 void		fdset_client(t_server *serv,
 			     fd_set *rfds,
 			     fd_set *wfds);
+void		remove_client(t_server *server, t_client *torm);
+
+// msg
+void		send_msg(t_client *client);
+int		add_msg(t_client *client, char const *msg, const char *nickname);
 
 #endif
 
