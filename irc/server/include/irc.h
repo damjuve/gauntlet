@@ -6,6 +6,7 @@
 # define	CHANNAME_MAX	256
 # define	TOPIC_MAX	256
 # define	NICKNAME_MAX	256
+# define	LISTEN_MAX	50
 
 typedef struct s_msg t_msg;
 typedef struct s_channel t_channel;
@@ -24,6 +25,7 @@ typedef struct	s_server
   t_client	*clients;
   int		port;
   t_channel	*chans;
+  int		fd;
 }		t_server;
 
 struct s_channel
@@ -39,4 +41,8 @@ struct		s_msg
   char		from[NICKNAME_MAX];
 }		t_msg;
 
+
+int		xerror(char const *s);
+
 #endif
+
