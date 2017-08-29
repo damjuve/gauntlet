@@ -39,6 +39,7 @@ typedef struct	s_msg
 {
   char		*msg;
   char		from[NICKNAME_MAX];
+  struct s_msg	*next;
 }		t_msg;
 
 // Utils
