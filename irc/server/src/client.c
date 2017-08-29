@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <arpa/inet.h>
 #include <stdlib.h>
 #include <string.h>
@@ -56,5 +57,6 @@ int			client_join(t_server *server)
       tmp->next = new;
 
     }
+  printf("## new client #%d ##\n", new->fd);
   return (EXIT_SUCCESS);
 }
