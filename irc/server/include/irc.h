@@ -29,11 +29,11 @@ typedef struct		s_server
   struct timeval	tv;
 }			t_server;
 
-typedef struct	s_chanclient
+typedef struct		s_chanclient
 {
-  t_client	*client;
-  t_chanclient	*next;
-}		t_chanclient;
+  t_client		*client;
+  struct s_chanclient	*next;
+}			t_chanclient;
 
 typedef struct	s_channel
 {
