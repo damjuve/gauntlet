@@ -47,7 +47,9 @@ void		*xmalloc(size_t len);
 
 // client
 int		client_join(t_server *server);
-int		getmaxfd(t_server *serv);
+void		fdset_client(t_server *serv,
+			     fd_set *rfds,
+			     fd_set *wfds);
 
 #endif
 

@@ -5,7 +5,8 @@ CFLAGS	=	-Wall -Wextra -g
 CFLAGS	+=	-I./include
 
 SRCS	=	src/server.c \
-		src/utils.c
+		src/utils.c  \
+		src/client.c
 
 OBJS	=	$(SRCS:.c=.o)
 

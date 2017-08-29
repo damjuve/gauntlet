@@ -1,5 +1,6 @@
-
+#include <arpa/inet.h>
 #include <stdlib.h>
+#include <string.h>
 #include "irc.h"
 
 void		fdset_client(t_server *serv,
@@ -24,7 +25,7 @@ void		fdset_client(t_server *serv,
 
 static void		init_client(t_client *new, int fd)
 {
-  new->fd = client_fd;
+  new->fd = fd;
   memset(new->nickname, 0, NICKNAME_MAX);
   new->msgq = NULL;
   new->channel = NULL;
@@ -46,8 +47,8 @@ int			client_join(t_server *server)
   if ((new = xmalloc(sizeof(*new))) == NULL)
     return (EXIT_FAILURE);
   init_client(new, client_fd);
-  if ((tmp = serv->clients) == NULL)
-    serv->clients = new;
+  if ((tmp = server->clients) == NULL)
+    server->clients = new;
   else
     {
       while (tmp->next != NULL)

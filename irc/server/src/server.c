@@ -1,3 +1,4 @@
+#include <stdbool.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <stdio.h>
@@ -36,23 +37,87 @@ static int			init_server(t_server *server, int port)
   return (EXIT_SUCCESS);
 }
 
+char		*read_buff(t_client *client, bool *disconected)
+{
+  return (NULL);
+}
+
+void		remove_client(t_server *server, t_client *client)
+{
+  return ;
+}
+
+char		**read_cmd(char *buff)
+{
+  return (NULL);
+}
+
+int		execute_cmd(char *cmd, t_server *server, t_client *client)
+{
+  return (EXIT_SUCCESS);
+}
+
+int		receive_msg(t_server *server, t_client *client)
+{
+  char		*buff;
+  char		**cmd;
+  int		i;
+  bool		disconected;
+
+  disconected = false;
+  if ((buff = read_buff(client, &disconected)))
+    return (EXIT_FAILURE);
+  if (disconected) {
+    remove_client(server, client);
+    return (EXIT_SUCCESS);
+  }
+  if ((cmd = read_cmd(buff)) == NULL)
+    return (EXIT_FAILURE);
+  free(buff);
+  i = 0;
+  while (cmd[i] != NULL)
+    {
+      if (execute_cmd(cmd[i], server, client))
+	return (EXIT_FAILURE);
+      free(cmd[i]);
+      i++;
+    }
+  free(cmd);
+  return (EXIT_SUCCESS);
+}
+
+void		send_msg(t_client *client)
+{
+}
+
 int		start_server(t_server *server)
 {
   int		error;
   fd_set	readfd;
   fd_set	writefd;
+  t_client	*client;
 
-  printf("## irc server started ##");
+  printf("## irc server started ##\n");
   error = EXIT_SUCCESS;
   while (error == EXIT_SUCCESS)
     {
 
       FD_ZERO(&readfd);
       FD_ZERO(&writefd);
-      fdset_clients(server, &readfd);
+      fdset_client(server, &readfd, &writefd);
       if (select(server->maxfd + 1, &readfd, &writefd, NULL, &(server->tv)) == -1)
 	return (xerror("Call to select failed (start_server)\n"));
-      
+      if (FD_ISSET(server->fd, &readfd) && client_join(server))
+	return (EXIT_FAILURE);
+      client = server->clients;
+      while (client != NULL)
+	{
+	  if (FD_ISSET(client->fd, &writefd))
+	    send_msg(client);
+	  if (FD_ISSET(client->fd, &readfd) && receive_msg(server, client))
+	    return (EXIT_FAILURE);
+	  client = client->next;
+	}
     }
   return (error);
 }
