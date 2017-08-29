@@ -1,5 +1,3 @@
-
-
 #ifndef		IRC_H_
 # define	IRC_H_
 
@@ -20,22 +18,24 @@ typedef struct		s_client
   struct s_client	*next;
 }			t_client;
 
-typedef struct	s_server
+typedef struct		s_server
 {
-  t_client	*clients;
-  int		port;
-  t_channel	*chans;
-  int		fd;
-}		t_server;
+  t_client		*clients;
+  int			port;
+  t_channel		*chans;
+  int			fd;
+  int			maxfd;
+  struct timeval	tv;
+}			t_server;
 
-struct s_channel
+typedef struct s_channel
 {
   char		name[CHANNAME_MAX];
   char		topic[TOPIC_MAX];
   t_client	*clients;
-};
+}		t_chanel;
 
-struct		s_msg
+typedef struct	s_msg
 {
   char		*msg;
   char		from[NICKNAME_MAX];

@@ -1,17 +1,18 @@
-NAME	=	./server
+NAME	=	server
 CC	=	gcc
 
 CFLAGS	=	-Wall -Wextra -g
 CFLAGS	+=	-I./include
 
-SRCS	=	src/main.c
+SRCS	=	src/server.c \
+		src/utils.c
 
-OBJS	=	$(SRCS:.cpp=.o)
+OBJS	=	$(SRCS:.c=.o)
 
 all	:	$(NAME)
 
 $(NAME)	:	$(OBJS)
-		$(CC) -o $(NAME) $(OBJS) $(LDFLAGS)
+		$(CC) -o $(NAME) $(OBJS) $(CFLAGS)
 
 clean	:
 		rm -f $(OBJS)

@@ -4,9 +4,9 @@ CC	=	gcc
 CFLAGS	=	-Wall -Wextra -g
 CFLAGS	+=	-I./include
 
-SRCS	=	src/main.c
+SRCS	=	./src/main.c
 
-OBJS	=	$(SRCS:.cpp=.o)
+OBJS	=	$(SRCS:.c=.o)
 
 all	:	$(NAME)
 
