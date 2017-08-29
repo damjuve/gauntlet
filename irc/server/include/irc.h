@@ -41,8 +41,13 @@ struct		s_msg
   char		from[NICKNAME_MAX];
 }		t_msg;
 
-
+// Utils
 int		xerror(char const *s);
+void		*xmalloc(size_t len);
+
+// client
+int		client_join(t_server *server);
+int		getmaxfd(t_server *serv);
 
 #endif
 

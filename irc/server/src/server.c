@@ -6,7 +6,7 @@
 #include "irc.h"
 
 
-bool			init_server(t_server *server, int port)
+int			init_server(t_server *server, int port)
 {
   struct sockaddr_in	sin;
 
