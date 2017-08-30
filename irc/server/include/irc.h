@@ -73,6 +73,7 @@ void		fdset_client(t_server *serv,
 			     fd_set *rfds,
 			     fd_set *wfds);
 void		remove_client(t_server *server, t_client *torm);
+t_client	*get_client_from_name(t_server *server, const char *name);
 
 // msg
 void		send_msg(t_client *client);
