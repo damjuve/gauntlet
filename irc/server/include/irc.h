@@ -8,6 +8,8 @@
 # define	LISTEN_MAX	50
 
 
+#include <stdbool.h>
+
 typedef struct s_msg t_msg;
 typedef struct s_channel t_channel;
 
@@ -55,6 +57,7 @@ typedef struct	s_command
 {
   char		*cmd;
   int		(*fct)(char const *msg, t_server *server, t_client *client);
+  bool		logged;
 }		t_command;
 
 // Utils
@@ -77,6 +80,14 @@ int		add_msg(t_client *client, char const *msg, const char *nickname);
 
 // command
 int		execute_cmd(char const *cmd, t_server *server, t_client *client);
+
+// debug
+void	printchannels(t_server *server);
+void	printclients(t_server *server);
+void	printclient(t_server *server, t_client *cli);
+bool	hasclient(t_channel *chan, t_client *cli);
+
+
 
 #endif
 

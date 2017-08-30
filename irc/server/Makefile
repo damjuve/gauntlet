@@ -9,7 +9,8 @@ SRCS	=	src/server.c \
 		src/client.c \
 		src/msg.c \
 		src/command.c \
-		src/remove_client.c
+		src/remove_client.c \
+		src/debug.c
 
 OBJS	=	$(SRCS:.c=.o)
 
