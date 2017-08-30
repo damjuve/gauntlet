@@ -59,3 +59,17 @@ int			client_join(t_server *server)
   printf("## new client #%d ##\n", new->fd);
   return (EXIT_SUCCESS);
 }
+
+t_client	*get_client_from_name(t_server *server, const char *name)
+{
+  t_client	*client;
+
+  if (!server->clients)
+    return (NULL);
+  client = server->clients;
+  while (client->next != NULL && strcmp(client->nickname, name))
+    client = client->next;
+  if (!strcmp(client->nickname, name))
+    return (client);
+  return (NULL);
+}
