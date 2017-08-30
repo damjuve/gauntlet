@@ -11,8 +11,11 @@ int		add_msg(t_client *client, char const *msg, const char *nickname)
 
   if ((new = xmalloc(sizeof(*new))) == NULL)
     return (EXIT_FAILURE);
-  if ((new->msg = xncopy(msg, strlen(msg))) == NULL)
+  if ((new->msg = xmalloc(strlen(msg) + 2)) == NULL)
       return (EXIT_FAILURE);
+  strcpy(new->msg, msg);
+  new->msg[strlen(msg)] = '\n';
+  new->msg[strlen(msg) + 1] = '\0';
   new->next = NULL;
   memset(new->from, 0, NICKNAME_MAX);
   strncpy(new->from, nickname, NICKNAME_MAX);

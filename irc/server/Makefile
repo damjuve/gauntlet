@@ -7,8 +7,9 @@ CFLAGS	+=	-I./include
 SRCS	=	src/server.c \
 		src/utils.c  \
 		src/client.c \
-		src/remove_client.c \
-		src/msg.c
+		src/msg.c \
+		src/command.c \
+		src/remove_client.c
 
 OBJS	=	$(SRCS:.c=.o)
 

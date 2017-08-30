@@ -29,7 +29,6 @@ static void		init_client(t_client *new, int fd)
   new->fd = fd;
   memset(new->nickname, 0, NICKNAME_MAX);
   new->msgq = NULL;
-  new->channel = NULL;
   new->next = NULL;
 }
 

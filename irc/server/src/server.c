@@ -84,7 +84,7 @@ char		**read_cmd(char *buff)
 	{
 	  if ((cmd = xrealloc(cmd, sizeof(*cmd) * (j + 2))) == NULL)
 	    return (NULL);
-	  if ((cmd[j] = xncopy(&buff[off], i - off)) == NULL)
+	  if ((cmd[j] = xncopy(&buff[off], i - off - 1)) == NULL)
 	    return (NULL);
 	  off = i;
 	  j++;
@@ -93,13 +93,6 @@ char		**read_cmd(char *buff)
       i++;
     }
   return (cmd);
-}
-
-int		execute_cmd(char *cmd, t_server *server, t_client *client)
-{
-  printf("CLIENT %d => CMD => %s\n", client->fd, cmd);
-  add_msg(client, "OK TAMERE", "SERVER");
-  return (EXIT_SUCCESS);
 }
 
 int		receive_msg(t_server *server, t_client *client)

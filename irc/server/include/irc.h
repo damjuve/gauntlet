@@ -51,11 +51,18 @@ typedef struct	s_msg
   struct s_msg	*next;
 }		t_msg;
 
+typedef struct	s_command
+{
+  char		*cmd;
+  int		(*fct)(char const *msg, t_server *server, t_client *client);
+}		t_command;
+
 // Utils
 int		xerror(char const *s);
 void		*xmalloc(size_t len);
 void		*xrealloc(void* data, size_t len);
 char		*xncopy(char const *src, size_t len);
+char const	*skipspace(char const *str);
 
 // client
 int		client_join(t_server *server);
@@ -68,6 +75,9 @@ t_client	*get_client_from_name(t_server *server, const char *name);
 // msg
 void		send_msg(t_client *client);
 int		add_msg(t_client *client, char const *msg, const char *nickname);
+
+// command
+int		execute_cmd(char const *cmd, t_server *server, t_client *client);
 
 #endif
 
